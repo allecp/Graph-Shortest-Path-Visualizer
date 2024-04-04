@@ -7,7 +7,7 @@ const graphs: {nodes: Node[], edges: Edge[]}[] = [
         nodes:
             [
                 {id: '0', type: 'graphNode', position: {x:0, y: 0}, data : {value: '0', processed:false}},
-                {id: '1', type: 'graphNode', position: {x:-50, y: 50}, data : {value: '1', processed:false}},
+                {id: '1', type: 'graphNode', position: {x:-50, y: 50}, data : {value: '?', processed:false}},
                 {id: '2', type: 'graphNode', position: {x:50, y: 50}, data : {value: '?',processed:false}},
                 {id: '3', type: 'graphNode', position: {x:50, y: 100}, data : {value: '?', processed:false}},
                 {id: '4', type: 'graphNode', position: {x:-50, y: 100}, data : {value: '?', processed:false}}
