@@ -1,10 +1,10 @@
 
 import React, { useCallback, useState, useEffect, useRef } from 'react';
 import 'reactflow/dist/style.css';
-import BellmanFordNode from './BellmanFordNode.tsx';
+import CustomNode from './CustomNode.tsx';
 import Toolbar from './Toolbar.tsx'
 import {ModeType, NodeInfo,AdjInfo} from '../types.ts'
-import BellmanFordEdge from './BellmanFordEdge.tsx';
+import CustomEdge from './customEdge.tsx';
 import Graphs from '../graphs2.ts';
 import toast, { Toaster } from 'react-hot-toast';
 
@@ -25,9 +25,9 @@ import ReactFlow, {
 import next from 'next';
 
 // set node and edge types to the custom nodes/edges
-const nodeTypes = { bellmanFordNode: BellmanFordNode }
+const nodeTypes = { customNode : CustomNode }
 const edgeTypes = {
-  bellmanFordEdge: BellmanFordEdge
+  customEdge: CustomEdge
 }
 
 // hides reactflow icon

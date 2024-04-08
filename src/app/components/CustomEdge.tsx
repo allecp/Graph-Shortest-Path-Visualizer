@@ -1,24 +1,43 @@
 import React from 'react'
-import { BaseEdge, getStraightPath, EdgeLabelRenderer } from 'reactflow';
+import { useCallback } from 'react';
+import { BaseEdge, getStraightPath, EdgeLabelRenderer, useStore } from 'reactflow';
+import { getEdgeParams } from '../utils';
 
 type CustomEdgeProps = {
-    sourceX: number,
-    sourceY: number,
-    targetX: number,
-    targetY: number,
+    source: string,
+    target: string,
+    markerEnd?: string,
     id: string,
     style?: React.CSSProperties,
     data?: {weight: number}
-    //label: string
 }
 
-const CustomEdge = ({sourceX,sourceY,targetX,targetY,id,style,data}: CustomEdgeProps) => {
-    
-    const [edgePath,labelX,labelY] = getStraightPath({sourceX,sourceY,targetX,targetY});
+const CustomEdge = ({source,target,id,style,data,markerEnd}: CustomEdgeProps) => {
   
+  const sourceNode = useStore(useCallback((store: any) => store.nodeInternals.get(source), [source]));
+  const targetNode = useStore(useCallback((store: any) => store.nodeInternals.get(target), [target]));
+
+  if (!sourceNode || !targetNode) {
+    return null;
+  }
+
+  const { sx, sy, tx, ty} = getEdgeParams(sourceNode, targetNode);
+
+  const [edgePath,labelX,labelY] = getStraightPath({
+    sourceX: sx,
+    sourceY: sy,
+    targetX: tx,
+    targetY: ty,
+  })
+    
     return (
     <>
-        <BaseEdge id={id} path={edgePath} style ={style}/>
+        <BaseEdge 
+            id={id} 
+            path={edgePath} 
+            style ={style} 
+            markerEnd={markerEnd}
+        />
         <EdgeLabelRenderer>
           <div 
             style={{

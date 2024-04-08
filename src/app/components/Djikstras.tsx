@@ -1,10 +1,10 @@
 
 import React, { useCallback, useState, useEffect, useRef } from 'react';
 import 'reactflow/dist/style.css';
-import GraphNode from './GraphNode.tsx';
+import CustomNode from './CustomNode.tsx';
 import Toolbar from './Toolbar.tsx'
 import {ModeType, NodeInfo,AdjInfo} from '../types.ts'
-import CustomEdge from './CustomEdge.tsx';
+import CustomEdge from './customEdge.tsx';
 import Graphs from '../graphs.ts'
 
 import ReactFlow, {
@@ -25,7 +25,7 @@ import next from 'next';
 
 
 // set node and edge types to the custom nodes/edges
-const nodeTypes = { graphNode: GraphNode }
+const nodeTypes = { customNode: CustomNode}
 const edgeTypes = {
   customEdge: CustomEdge
 }
@@ -33,8 +33,8 @@ const edgeTypes = {
 // hides reactflow icon
 const proOptions = { hideAttribution: true };
 
-const initialNodes = Graphs[2].nodes;
-const initialEdges = Graphs[2].edges;
+const initialNodes = Graphs[0].nodes;
+const initialEdges = Graphs[0].edges;
 
 // initialzes cost array. sets distance from start nodes to "infinity" except start node
 function initCostArr(graphNum: number){
@@ -45,8 +45,8 @@ const Djikstras = () => {
 
   const [nodes, setNodes] = useState<Node[]>(initialNodes);
   const [edges, setEdges] = useState<Edge[]>(initialEdges);
-  const [costArr,setCostArr] = useState<NodeInfo[]>(initCostArr(2));
-  const [graph,setGraph] = useState<number>(3)
+  const [costArr,setCostArr] = useState<NodeInfo[]>(initCostArr(0));
+  const [graph,setGraph] = useState<number>(0)
   const [currentNode,setCurrentNode] = useState<{id: string, isActive: boolean}>({id: '0',isActive: false});
   const intervalId = useRef<string | number | undefined | NodeJS.Timeout>(undefined);
   const [run,setRun] = useState(false);
@@ -102,16 +102,19 @@ const Djikstras = () => {
 
   // highlights and relaxes edges coming from the current node 
   function handleEdges(){
-    let nextEdgeIndex = -1;
-        for (let j = 0; j < edges.length; j++){
-            if (edges[j].style?.stroke !== 'orange' && (edges[j].source === currentNode.id || edges[j].target === currentNode.id)){
-              nextEdgeIndex = j;
-              break;
-            }
-        }
+    let nextEdgeId = '-1';
+    const currentNodeId = currentNode.id;
+
+        
+    for (let i = 0; i < edges.length; i++){
+      if (currentNodeId === edges[i].source && edges[i].style?.stroke === "white"){
+        nextEdgeId = edges[i].id;
+        break;
+      }
+  }
 
       // all adjacent edges are highlighted, therefore switch state to isActive to switch back to processing a new node
-      if (nextEdgeIndex === -1){
+      if (nextEdgeId === '-1'){
         intervalId.current = setInterval(()=>{
           setCurrentNode({id: currentNode.id,isActive:false})
         },1000 - parseInt(speed));
@@ -119,15 +122,10 @@ const Djikstras = () => {
         return;
       };
 
-      const nextEdgeWeight = edges[nextEdgeIndex].data.weight;
-      let newEdgeArr = edges.map((edge) => nextEdgeIndex.toString() === edge.id ? {...edge,style: {stroke: "orange"}} : {...edge});
+      const nextEdgeWeight = edges[parseInt(nextEdgeId)].data.weight;
+      let newEdgeArr = edges.map((edge) => nextEdgeId === edge.id ? {...edge,style: {stroke: "#c026d3"}} : {...edge});
 
-      let targetId = edges[nextEdgeIndex].target, sourceId = currentNode.id;
-
-      if (edges[nextEdgeIndex].source !== currentNode.id){
-        targetId = sourceId;
-        sourceId = edges[nextEdgeIndex].target;
-      }
+      let targetId = edges[parseInt(nextEdgeId)].target, sourceId = currentNode.id;
 
       const newCostArr = costArr.map((element) => {
 

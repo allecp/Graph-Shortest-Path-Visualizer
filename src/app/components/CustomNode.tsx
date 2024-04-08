@@ -1,11 +1,11 @@
 import React from 'react'
 import {Handle, Position} from 'reactflow';
 
-type BellmanFordNode = {
+type CustomNodeProps = {
     data: {value: string,processed: boolean}
   }
 
-const BellmanFordNode = ({data}: BellmanFordNode) => {
+const CustomNode = ({data}: CustomNodeProps) => {
 
     const bgColor = data.processed ? "bg-fuchsia-600" : "bg-nuetral-600";
 
@@ -28,4 +28,4 @@ const BellmanFordNode = ({data}: BellmanFordNode) => {
   )
 }
 
-export default BellmanFordNode
+export default CustomNode

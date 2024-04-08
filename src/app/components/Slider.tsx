@@ -4,12 +4,11 @@ import React, { ChangeEvent } from 'react'
 type SliderProps = {
   speed: string,
   setSpeed: (speed: string) => void,
-  color: string
 }
 
 
 
-const Slider = ({speed,setSpeed,color}: SliderProps) => {
+const Slider = ({speed,setSpeed}: SliderProps) => {
 
   function speedChangeHandler(event: ChangeEvent<HTMLInputElement>){
     const newSpeed = event.currentTarget.value;
@@ -25,7 +24,7 @@ const Slider = ({speed,setSpeed,color}: SliderProps) => {
           max ={1000} 
           step = "100" 
           value = {speed}  
-          className = {`w-14 sm:w-24 mt-1 ${color}`}
+          className = {`w-14 sm:w-24 mt-1 accent-fuchsia-600`}
           onChange = {speedChangeHandler}>
         </input>
     </div>
