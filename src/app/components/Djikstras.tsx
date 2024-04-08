@@ -4,7 +4,7 @@ import 'reactflow/dist/style.css';
 import CustomNode from './CustomNode.tsx';
 import Toolbar from './Toolbar.tsx'
 import {ModeType, NodeInfo,AdjInfo} from '../types.ts'
-import CustomEdge from './customEdge.tsx';
+import CustomEdge from './CustomEdge.tsx';
 import Graphs from '../graphs.ts'
 
 import ReactFlow, {
