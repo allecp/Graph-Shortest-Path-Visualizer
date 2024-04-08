@@ -321,7 +321,6 @@ const BellManFord = () => {
           run = {run}
           speed = {speed}
           setSpeed = {setSpeed}
-          sliderColor = {"accent-fuchsia-600"}
         />
         </ReactFlowProvider>
     </div>
