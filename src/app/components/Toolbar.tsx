@@ -16,16 +16,15 @@ type ToolbarProps = {
     setSpeed: (speed: string) => void,
     speed: string,
     run: boolean,
-    sliderColor: string
 }
 
 
-const Toolbar = ({speed,sliderColor,setSpeed,startHandler,changeHandler,resetHandler,pauseHandler,run} : ToolbarProps) => {
+const Toolbar = ({speed,setSpeed,startHandler,changeHandler,resetHandler,pauseHandler,run} : ToolbarProps) => {
 
 
   return (
     <div className = "w-screen flex flex-row justify-center">
-      <Slider speed = {speed} setSpeed = {setSpeed} color = {sliderColor}/>
+      <Slider speed = {speed} setSpeed = {setSpeed}/>
       <StartButton run = {run} handler = {!run ? startHandler : pauseHandler}/>
       <ChangeButton changeHandler = {changeHandler}/>
       <ResetButton resetHandler = {resetHandler}/>

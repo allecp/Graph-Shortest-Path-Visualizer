@@ -224,7 +224,6 @@ const Djikstras = () => {
           />
         <Toolbar 
           startHandler = {startHandler}
-          sliderColor='accent-orange-600'
           changeHandler = {changeGraphHandler} 
           resetHandler = {resetHandler}
           pauseHandler = {pauseHandler}
