@@ -71,6 +71,7 @@ const Djikstras = () => {
     if (run){
       iteration();
     }
+    // clears the interval when setCurrentNode() triggers state change
     return () => clearInterval(intervalId.current);
   },[currentNode,run])
 
@@ -88,6 +89,7 @@ const Djikstras = () => {
       }
     });
 
+    // marks the node that is going to be used
     let newCostArr = costArr.map((nodeInfo) => nodeInfo.id !== minId ? {...nodeInfo} : {...nodeInfo,used:true})
     let newNodes = nodes.map((node) => node.id !== minId ? {...node} : {...node,data: {...node.data, processed:true}});
     let newEdges = edges.map((edge) => ({...edge,style:{stroke: 'white'}}));
@@ -105,13 +107,13 @@ const Djikstras = () => {
     let nextEdgeId = '-1';
     const currentNodeId = currentNode.id;
 
-        
+    // finds the next outgoing edge coming from the current highlighted node
     for (let i = 0; i < edges.length; i++){
       if (currentNodeId === edges[i].source && edges[i].style?.stroke === "white"){
         nextEdgeId = edges[i].id;
         break;
       }
-  }
+    }
 
       // all adjacent edges are highlighted, therefore switch state to isActive to switch back to processing a new node
       if (nextEdgeId === '-1'){
@@ -121,6 +123,7 @@ const Djikstras = () => {
 
         return;
       };
+
 
       const nextEdgeWeight = edges[parseInt(nextEdgeId)].data.weight;
       let newEdgeArr = edges.map((edge) => nextEdgeId === edge.id ? {...edge,style: {stroke: "#c026d3"}} : {...edge});
@@ -165,9 +168,12 @@ const Djikstras = () => {
     if (processedNodes === nodes.length){
       return;
     }
+    // currentNode {nodeId : string, isActive : boolean}
+    // next node is ready to be selected
     else if (!currentNode.isActive){
       handleNode()
     }
+    // currentnode is active: higlight its outgoing edges
     else{
       handleEdges()
     }
