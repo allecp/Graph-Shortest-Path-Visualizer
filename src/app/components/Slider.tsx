@@ -24,7 +24,7 @@ const Slider = ({speed,setSpeed}: SliderProps) => {
           max ={1000} 
           step = "100" 
           value = {speed}  
-          className = {`w-14 sm:w-24 mt-1 accent-fuchsia-600`}
+          className = {`w-14 sm:w-24 mt-1 accent-neutral-200`}
           onChange = {speedChangeHandler}>
         </input>
     </div>

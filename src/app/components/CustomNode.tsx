@@ -7,7 +7,7 @@ type CustomNodeProps = {
 
 const CustomNode = ({data}: CustomNodeProps) => {
 
-    const bgColor = data.processed ? "bg-fuchsia-600" : "bg-nuetral-600";
+    const bgColor = data.processed ? "bg-orange-600" : "bg-nuetral-600";
 
   return (
     <div className = {`py-1 h-7 w-7 border-white rounded-full relative ${bgColor} text-white border-2 text-center text-xs`}>

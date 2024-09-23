@@ -72,6 +72,7 @@ const Djikstras = () => {
       iteration();
     }
     // clears the interval when setCurrentNode() triggers state change
+    // without clearing the interval, the callback passed to setInterval() in handleEdges and handleNodes will execute indefinetly
     return () => clearInterval(intervalId.current);
   },[currentNode,run])
 
@@ -92,6 +93,8 @@ const Djikstras = () => {
     // marks the node that is going to be used
     let newCostArr = costArr.map((nodeInfo) => nodeInfo.id !== minId ? {...nodeInfo} : {...nodeInfo,used:true})
     let newNodes = nodes.map((node) => node.id !== minId ? {...node} : {...node,data: {...node.data, processed:true}});
+
+    // makes all edges white again because the edges from the last node we visited are highlighted 
     let newEdges = edges.map((edge) => ({...edge,style:{stroke: 'white'}}));
 
     intervalId.current = setInterval(() => {
@@ -126,7 +129,7 @@ const Djikstras = () => {
 
 
       const nextEdgeWeight = edges[parseInt(nextEdgeId)].data.weight;
-      let newEdgeArr = edges.map((edge) => nextEdgeId === edge.id ? {...edge,style: {stroke: "#c026d3"}} : {...edge});
+      let newEdgeArr = edges.map((edge) => nextEdgeId === edge.id ? {...edge,style: {stroke: "#ea580c"}} : {...edge});
 
       let targetId = edges[parseInt(nextEdgeId)].target, sourceId = currentNode.id;
 
